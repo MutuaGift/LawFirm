@@ -607,24 +607,42 @@
             text-align: right;
         }
 
+        /* IMPROVED TEAM SLIDER STYLES */
         .team {
             background: var(--white);
             position: relative;
         }
 
+        .team-slider-wrapper {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
         .team-slider-container {
             position: relative;
             overflow: hidden;
+            padding: 0 70px;
+        }
+
+        .team-slider-track {
+            overflow: hidden;
+            border-radius: 8px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            padding: 20px;
         }
 
         .team-slider {
             display: flex;
-            transition: transform 0.5s ease;
-            gap: 25px;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 30px;
+            padding: 10px;
         }
 
         .team-member {
-            min-width: calc(33.333% - 17px);
+            flex: 0 0 calc(33.333% - 20px);
+            min-width: calc(33.333% - 20px);
             background: var(--white);
             border-radius: 8px;
             overflow: hidden;
@@ -638,9 +656,16 @@
             box-shadow: var(--shadow-lg);
         }
 
+        .team-member:hover .member-photo img {
+            transform: scale(1.05);
+        }
+
+        .team-member:hover .member-info:before {
+            transform: scaleX(1);
+        }
+
         .member-photo {
             height: 300px;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -654,10 +679,6 @@
             object-fit: cover;
             object-position: center 30%;
             transition: var(--transition);
-        }
-
-        .team-member:hover .member-photo img {
-            transform: scale(1.05);
         }
 
         .member-photo i {
@@ -681,10 +702,6 @@
             background: var(--accent-gold);
             transform: scaleX(0);
             transition: transform 0.3s ease;
-        }
-
-        .team-member:hover .member-info:before {
-            transform: scaleX(1);
         }
 
         .member-info h3 {
@@ -733,51 +750,132 @@
             transform: translateX(5px);
         }
 
-        .slider-nav {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            margin-top: 40px;
-        }
-
+        /* IMPROVED SLIDER BUTTONS */
         .slider-btn {
-            width: 45px;
-            height: 45px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             background: var(--primary-dark);
             color: var(--white);
-            border: none;
+            border: 2px solid var(--border-color);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow);
+            z-index: 10;
         }
 
-        .slider-btn:hover {
+        .slider-btn:hover:not(:disabled) {
             background: var(--accent-gold);
-            color: var(--primary-dark);
-            transform: scale(1.1);
+            border-color: var(--accent-gold);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
         }
 
-        .slider-dots {
+        .slider-btn:focus {
+            outline: 3px solid rgba(197, 160, 71, 0.3);
+            outline-offset: 2px;
+        }
+
+        .slider-btn:active:not(:disabled) {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .slider-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            transform: translateY(-50%);
+        }
+
+        .prev-btn {
+            left: 10px;
+        }
+
+        .next-btn {
+            right: 10px;
+        }
+
+        /* IMPROVED SLIDER DOTS */
+        .slider-dots-container {
             display: flex;
+            justify-content: center;
             gap: 8px;
+            margin-top: 2rem;
+            padding: 10px;
         }
 
         .slider-dot {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--border-color);
+            border: none;
             cursor: pointer;
             transition: var(--transition);
+            padding: 0;
+        }
+
+        .slider-dot:hover:not(.active) {
+            background: var(--text-light);
+            transform: scale(1.2);
         }
 
         .slider-dot.active {
             background: var(--accent-gold);
-            transform: scale(1.2);
+            transform: scale(1.3);
+        }
+
+        .slider-dot:focus {
+            outline: 2px solid var(--accent-gold);
+            outline-offset: 2px;
+        }
+
+        /* Auto-play Controls */
+        .auto-play-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .auto-play-toggle {
+            width: 44px;
+            height: 24px;
+            background: var(--border-color);
+            border-radius: 12px;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auto-play-toggle::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--white);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .auto-play-toggle.active {
+            background: var(--accent-gold);
+        }
+
+        .auto-play-toggle.active::after {
+            transform: translateX(20px);
         }
 
         .services {
@@ -1343,47 +1441,54 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
 
-        @media (max-width: 1200px) {
-            .container {
-                padding: 0 35px;
-            }
-        }
-
-        @media (max-width: 992px) {
-            nav ul {
-                gap: 20px;
-            }
-            
-            .about-container,
-            .contact-container {
-                grid-template-columns: 1fr;
-                gap: 35px;
-            }
-            
-            .footer-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 25px;
-            }
-            
-            .firm-highlights {
-                grid-template-columns: 1fr;
-                gap: 15px;
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .team-slider-container {
+                padding: 0 50px;
             }
             
             .team-member {
-                min-width: calc(50% - 12px);
+                flex: 0 0 calc(50% - 15px);
+                min-width: calc(50% - 15px);
             }
             
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section {
-                padding: 60px 0;
+            .member-photo {
+                height: 280px;
             }
         }
 
         @media (max-width: 768px) {
+            .team-section {
+                padding: 60px 0;
+            }
+            
+            .team-slider-container {
+                padding: 0 20px;
+            }
+            
+            .team-member {
+                flex: 0 0 calc(100% - 20px);
+                min-width: calc(100% - 20px);
+                margin: 0 10px;
+            }
+            
+            .member-photo {
+                height: 260px;
+            }
+            
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .prev-btn {
+                left: 5px;
+            }
+            
+            .next-btn {
+                right: 5px;
+            }
+            
             nav {
                 display: none;
                 position: fixed;
@@ -1438,38 +1543,10 @@
                 gap: 12px;
             }
             
-            /* MOBILE TEAM SLIDER FIX */
-            .team-member {
-                min-width: 85% !important;
-                margin: 0 10px;
-            }
-            
-            .team-slider-container {
-                overflow: hidden;
-                touch-action: pan-y;
-            }
-            
-            .slider-btn {
-                width: 50px;
-                height: 50px;
-                background: var(--accent-gold);
-                color: var(--primary-dark);
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                z-index: 10;
-            }
-            
-            .prev-btn {
-                left: 10px;
-            }
-            
-            .next-btn {
-                right: 10px;
-            }
-            
-            .slider-dots {
-                margin-top: 30px;
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 35px;
             }
             
             .services-grid {
@@ -1486,24 +1563,30 @@
             }
             
             .footer-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .logo-text {
-                font-size: 1.1rem;
-            }
-            
-            .logo-subtext {
-                font-size: 0.65rem;
-            }
-            
-            .section-header h2 {
-                font-size: 1.9rem;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
             }
         }
 
         @media (max-width: 480px) {
+            .team-slider-container {
+                padding: 0 15px;
+            }
+            
+            .team-member {
+                min-width: calc(100% - 10px);
+                margin: 0 5px;
+            }
+            
+            .member-photo {
+                height: 240px;
+            }
+            
+            .slider-btn {
+                width: 40px;
+                height: 40px;
+            }
+            
             .container {
                 padding: 0 15px;
             }
@@ -1543,13 +1626,24 @@
                 justify-content: center;
             }
             
-            .team-member {
-                min-width: 90% !important;
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        /* Reduced Motion Support */
+        @media (prefers-reduced-motion: reduce) {
+            .team-slider,
+            .team-member,
+            .slider-btn,
+            .slider-dot,
+            .auto-play-toggle::after {
+                transition: none !important;
             }
             
-            .slider-btn {
-                width: 45px;
-                height: 45px;
+            .team-slider {
+                transition: transform 0.1s ease !important;
             }
         }
     </style>
@@ -1711,7 +1805,7 @@
         </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Team Section with IMPROVED Slider -->
     <section class="team section" id="team">
         <div class="container">
             <div class="section-header">
@@ -1719,71 +1813,82 @@
                 <p>Meet our experienced team of legal experts serving Machakos, Nairobi & Matuu</p>
             </div>
 
-            <div class="team-slider-container">
-                <div class="team-slider" id="teamSlider">
-                    <!-- James M. Kathili -->
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <img src="managing.jpg" alt="James M. Kathili">
-                        </div>
-                        <div class="member-info">
-                            <h3>James M. Kathili</h3>
-                            <div class="member-role">Managing Director / Founder</div>
-                            <div class="member-specialty">Civil Litigation & Commercial Law</div>
-                            <p>Specializing in civil disputes and commercial transactions across Machakos, Nairobi, and Matuu courts. Proven track record of successful litigation outcomes in multiple jurisdictions.</p>
-                            <a href="tel:+254721157732" class="contact-phone">
-                                <i class="fas fa-phone"></i> 0721 157 732
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Judah Mwendwa -->
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <img src="judah.jpg" alt="Judah Mwendwa">
-                        </div>
-                        <div class="member-info">
-                            <h3>Judah Mwendwa</h3>
-                            <div class="member-role">Legal Assistant / Lawyer</div>
-                            <div class="member-specialty">Legal Research & Client Support</div>
-                            <p>Skilled legal professional providing comprehensive support in research, documentation, and client services across our Machakos, Nairobi, and Matuu offices. Committed to ensuring efficient case management and client satisfaction.</p>
-                            <a href="tel:+254743303669" class="contact-phone">
-                                <i class="fas fa-phone"></i> 0743 303 669
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Joshua Martim -->
-                    <div class="team-member">
-                        <div class="member-photo">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
-                        <div class="member-info">
-                            <h3>Joshua Martim</h3>
-                            <div class="member-role">Associate Advocate</div>
-                            <div class="member-specialty">Conveyancing & Legal Drafting</div>
-                            <p>Experience in property law, specializing in commercial real estate transactions across Machakos, Nairobi, and Matuu. Meticulous attention to detail in legal documentation for various property matters.</p>
-                            <a href="tel:+254721157732" class="contact-phone">
-                                <i class="fas fa-phone"></i> 0721 157 732
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-nav">
-                    <button class="slider-btn prev-btn">
+            <div class="team-slider-wrapper">
+                <div class="team-slider-container">
+                    <!-- Navigation Buttons -->
+                    <button class="slider-btn prev-btn" aria-label="Previous team member">
                         <i class="fas fa-chevron-left"></i>
                     </button>
+                    
+                    <div class="team-slider-track">
+                        <!-- Slider Container -->
+                        <div id="teamSlider" class="team-slider" role="region" aria-label="Team members carousel" aria-live="polite">
+                            <!-- James M. Kathili -->
+                            <div class="team-member" role="group" aria-label="Team member 1 of 3">
+                                <div class="member-photo">
+                                    <img src="managing.jpg" alt="James M. Kathili - Managing Director" loading="lazy" width="400" height="300">
+                                </div>
+                                <div class="member-info">
+                                    <h3>James M. Kathili</h3>
+                                    <div class="member-role">Managing Director / Founder</div>
+                                    <div class="member-specialty">Civil Litigation & Commercial Law</div>
+                                    <p>Specializing in civil disputes and commercial transactions across Machakos, Nairobi, and Matuu courts. Proven track record of successful litigation outcomes in multiple jurisdictions.</p>
+                                    <a href="tel:+254721157732" class="contact-phone">
+                                        <i class="fas fa-phone"></i> 0721 157 732
+                                    </a>
+                                </div>
+                            </div>
 
-                    <div class="slider-dots">
-                        <div class="slider-dot active" data-slide="0"></div>
-                        <div class="slider-dot" data-slide="1"></div>
-                        <div class="slider-dot" data-slide="2"></div>
+                            <!-- Judah Mwendwa -->
+                            <div class="team-member" role="group" aria-label="Team member 2 of 3">
+                                <div class="member-photo">
+                                    <img src="judah.jpg" alt="Judah Mwendwa - Legal Assistant" loading="lazy" width="400" height="300">
+                                </div>
+                                <div class="member-info">
+                                    <h3>Judah Mwendwa</h3>
+                                    <div class="member-role">Legal Assistant / Lawyer</div>
+                                    <div class="member-specialty">Legal Research & Client Support</div>
+                                    <p>Skilled legal professional providing comprehensive support in research, documentation, and client services across our Machakos, Nairobi, and Matuu offices.</p>
+                                    <a href="tel:+254743303669" class="contact-phone">
+                                        <i class="fas fa-phone"></i> 0743 303 669
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Joshua Martim -->
+                            <div class="team-member" role="group" aria-label="Team member 3 of 3">
+                                <div class="member-photo">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <div class="member-info">
+                                    <h3>Joshua Martim</h3>
+                                    <div class="member-role">Associate Advocate</div>
+                                    <div class="member-specialty">Conveyancing & Legal Drafting</div>
+                                    <p>Experience in property law, specializing in commercial real estate transactions across Machakos, Nairobi, and Matuu. Meticulous attention to detail in legal documentation.</p>
+                                    <a href="tel:+254721157732" class="contact-phone">
+                                        <i class="fas fa-phone"></i> 0721 157 732
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
-                    <button class="slider-btn next-btn">
+                    <button class="slider-btn next-btn" aria-label="Next team member">
                         <i class="fas fa-chevron-right"></i>
                     </button>
+
+                    <!-- Slider Dots -->
+                    <div class="slider-dots-container" role="tablist" aria-label="Slider navigation dots">
+                        <!-- Dots will be generated by JavaScript -->
+                    </div>
+
+                    <!-- Auto-play Controls -->
+                    <div class="auto-play-control">
+                        <span>Auto-play</span>
+                        <div class="auto-play-toggle active" id="autoPlayToggle">
+                            <span class="visually-hidden">Toggle auto-play</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2019,10 +2124,10 @@
                     <h3>J.M. Kathili & Company</h3>
                     <p>Providing exceptional legal services across Machakos, Nairobi, and Matuu for over <span id="footer-years">1</span> year with integrity, professionalism, and client-focused advocacy.</p>
                     <div class="social-links">
-                        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://wa.me/254721157732" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/254721157732" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
 
@@ -2069,10 +2174,11 @@
     </footer>
 
     <!-- WhatsApp Float -->
-    <a href="https://wa.me/254721157732" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/254721157732" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
+    <!-- IMPROVED TEAM SLIDER SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Dynamic year calculation
@@ -2204,126 +2310,382 @@
                 setTimeout(typeWriter, 1000);
             }
 
-            // Team slider functionality with mobile swipe support
-            const teamSlider = document.getElementById('teamSlider');
-            const teamMembers = document.querySelectorAll('.team-member');
-            const prevBtn = document.querySelector('.prev-btn');
-            const nextBtn = document.querySelector('.next-btn');
-            const sliderDots = document.querySelectorAll('.slider-dot');
-            let currentTeamSlide = 0;
-
-            function updateTeamSlider() {
-                if (!teamSlider || teamMembers.length === 0) return;
-                
-                // Calculate slide width based on screen size
-                let slideWidth;
-                if (window.innerWidth <= 768) {
-                    // Mobile: 85% width per slide
-                    slideWidth = 85;
-                } else {
-                    // Desktop: Show 3 slides at once
-                    slideWidth = 100 / Math.min(3, teamMembers.length);
+            // IMPROVED TEAM SLIDER FUNCTIONALITY
+            class TeamSlider {
+                constructor() {
+                    this.slider = document.getElementById('teamSlider');
+                    this.prevBtn = document.querySelector('.prev-btn');
+                    this.nextBtn = document.querySelector('.next-btn');
+                    this.dotsContainer = document.querySelector('.slider-dots-container');
+                    this.autoPlayToggle = document.getElementById('autoPlayToggle');
+                    this.teamMembers = document.querySelectorAll('.team-member');
+                    
+                    this.currentSlide = 0;
+                    this.autoPlayInterval = null;
+                    this.autoPlayEnabled = true;
+                    this.isDragging = false;
+                    this.startX = 0;
+                    this.currentX = 0;
+                    this.dragThreshold = 50;
+                    this.autoPlayDelay = 5000;
+                    
+                    if (this.slider && this.teamMembers.length > 0) {
+                        this.init();
+                    }
                 }
                 
-                teamSlider.style.transform = `translateX(-${currentTeamSlide * slideWidth}%)`;
+                init() {
+                    this.createDots();
+                    this.updateSlider();
+                    this.setupEventListeners();
+                    this.startAutoPlay();
+                    this.setupAccessibility();
+                }
                 
-                // Update active dot
-                sliderDots.forEach((dot, index) => {
-                    dot.classList.toggle('active', index === currentTeamSlide);
-                });
-            }
-
-            // Initialize slider
-            updateTeamSlider();
-
-            // Touch/swipe for mobile
-            let touchStartX = 0;
-            let touchEndX = 0;
-            let isDragging = false;
-
-            if (teamSlider) {
-                // Touch events
-                teamSlider.addEventListener('touchstart', (e) => {
-                    touchStartX = e.touches[0].clientX;
-                    isDragging = true;
-                });
-
-                teamSlider.addEventListener('touchmove', (e) => {
-                    if (!isDragging) return;
-                    touchEndX = e.touches[0].clientX;
-                });
-
-                teamSlider.addEventListener('touchend', () => {
-                    if (!isDragging) return;
-                    isDragging = false;
+                getVisibleSlides() {
+                    if (window.innerWidth <= 768) return 1;
+                    if (window.innerWidth <= 1024) return 2;
+                    return 3;
+                }
+                
+                getMaxSlide() {
+                    return Math.max(0, this.teamMembers.length - this.getVisibleSlides());
+                }
+                
+                createDots() {
+                    if (!this.dotsContainer) return;
                     
-                    const swipeThreshold = 50;
-                    const diff = touchStartX - touchEndX;
+                    this.dotsContainer.innerHTML = '';
+                    const maxSlide = this.getMaxSlide();
                     
-                    if (Math.abs(diff) > swipeThreshold) {
-                        if (diff > 0) {
-                            // Swipe left - next
-                            currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
-                        } else {
-                            // Swipe right - previous
-                            currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
-                        }
-                        updateTeamSlider();
+                    for (let i = 0; i <= maxSlide; i++) {
+                        const dot = document.createElement('button');
+                        dot.className = `slider-dot ${i === 0 ? 'active' : ''}`;
+                        dot.setAttribute('role', 'tab');
+                        dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                        dot.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+                        dot.setAttribute('tabindex', i === 0 ? '0' : '-1');
+                        
+                        dot.addEventListener('click', () => this.goToSlide(i));
+                        dot.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                this.goToSlide(i);
+                            }
+                        });
+                        
+                        this.dotsContainer.appendChild(dot);
                     }
-                });
-
-                // Mouse drag for desktop testing
-                teamSlider.addEventListener('mousedown', (e) => {
-                    if (window.innerWidth > 768) return;
-                    touchStartX = e.clientX;
-                    isDragging = true;
-                });
-
-                document.addEventListener('mousemove', (e) => {
-                    if (!isDragging) return;
-                    touchEndX = e.clientX;
-                });
-
-                document.addEventListener('mouseup', () => {
-                    if (!isDragging) return;
-                    isDragging = false;
+                }
+                
+                updateSlider() {
+                    const visibleSlides = this.getVisibleSlides();
+                    const maxSlide = this.getMaxSlide();
                     
-                    const swipeThreshold = 50;
-                    const diff = touchStartX - touchEndX;
+                    // Constrain current slide
+                    this.currentSlide = Math.min(this.currentSlide, maxSlide);
                     
-                    if (Math.abs(diff) > swipeThreshold) {
-                        if (diff > 0) {
-                            currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
-                        } else {
-                            currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
-                        }
-                        updateTeamSlider();
+                    // Calculate slide width and offset
+                    const slideWidth = 100 / visibleSlides;
+                    const offset = this.currentSlide * slideWidth;
+                    
+                    // Apply transform
+                    this.slider.style.transform = `translateX(-${offset}%)`;
+                    
+                    // Update button states
+                    this.updateButtonStates();
+                    
+                    // Update dots
+                    this.updateDots();
+                    
+                    // Update ARIA labels
+                    this.updateAriaLabels();
+                }
+                
+                updateButtonStates() {
+                    if (this.prevBtn) {
+                        const isDisabled = this.currentSlide === 0;
+                        this.prevBtn.disabled = isDisabled;
+                        this.prevBtn.setAttribute('aria-disabled', isDisabled);
                     }
-                });
+                    
+                    if (this.nextBtn) {
+                        const isDisabled = this.currentSlide >= this.getMaxSlide();
+                        this.nextBtn.disabled = isDisabled;
+                        this.nextBtn.setAttribute('aria-disabled', isDisabled);
+                    }
+                }
+                
+                updateDots() {
+                    const dots = this.dotsContainer?.querySelectorAll('.slider-dot');
+                    if (!dots) return;
+                    
+                    dots.forEach((dot, index) => {
+                        const isActive = index === this.currentSlide;
+                        dot.classList.toggle('active', isActive);
+                        dot.setAttribute('aria-selected', isActive);
+                        dot.setAttribute('tabindex', isActive ? '0' : '-1');
+                    });
+                }
+                
+                updateAriaLabels() {
+                    const current = this.currentSlide + 1;
+                    const total = Math.min(this.teamMembers.length, this.getMaxSlide() + 1);
+                    
+                    if (this.prevBtn) {
+                        this.prevBtn.setAttribute('aria-label', `Previous slide, ${current} of ${total}`);
+                    }
+                    
+                    if (this.nextBtn) {
+                        this.nextBtn.setAttribute('aria-label', `Next slide, ${current} of ${total}`);
+                    }
+                }
+                
+                nextSlide() {
+                    if (this.currentSlide < this.getMaxSlide()) {
+                        this.currentSlide++;
+                        this.updateSlider();
+                        this.resetAutoPlay();
+                        return true;
+                    }
+                    return false;
+                }
+                
+                prevSlide() {
+                    if (this.currentSlide > 0) {
+                        this.currentSlide--;
+                        this.updateSlider();
+                        this.resetAutoPlay();
+                        return true;
+                    }
+                    return false;
+                }
+                
+                goToSlide(index) {
+                    const maxSlide = this.getMaxSlide();
+                    const targetSlide = Math.min(Math.max(0, index), maxSlide);
+                    
+                    if (targetSlide !== this.currentSlide) {
+                        this.currentSlide = targetSlide;
+                        this.updateSlider();
+                        this.resetAutoPlay();
+                    }
+                }
+                
+                startAutoPlay() {
+                    if (!this.autoPlayEnabled) return;
+                    
+                    this.stopAutoPlay();
+                    this.autoPlayInterval = setInterval(() => {
+                        const success = this.nextSlide();
+                        if (!success) {
+                            // Loop back to start
+                            this.currentSlide = 0;
+                            this.updateSlider();
+                        }
+                    }, this.autoPlayDelay);
+                }
+                
+                stopAutoPlay() {
+                    if (this.autoPlayInterval) {
+                        clearInterval(this.autoPlayInterval);
+                        this.autoPlayInterval = null;
+                    }
+                }
+                
+                resetAutoPlay() {
+                    if (this.autoPlayEnabled) {
+                        this.stopAutoPlay();
+                        this.startAutoPlay();
+                    }
+                }
+                
+                toggleAutoPlay() {
+                    this.autoPlayEnabled = !this.autoPlayEnabled;
+                    
+                    if (this.autoPlayToggle) {
+                        this.autoPlayToggle.classList.toggle('active', this.autoPlayEnabled);
+                    }
+                    
+                    if (this.autoPlayEnabled) {
+                        this.startAutoPlay();
+                    } else {
+                        this.stopAutoPlay();
+                    }
+                }
+                
+                setupDragHandling() {
+                    // Touch events
+                    this.slider.addEventListener('touchstart', (e) => {
+                        this.startDrag(e.touches[0]);
+                    });
+                    
+                    this.slider.addEventListener('touchmove', (e) => {
+                        e.preventDefault();
+                        this.drag(e.touches[0]);
+                    }, { passive: false });
+                    
+                    this.slider.addEventListener('touchend', () => this.endDrag());
+                    
+                    // Mouse events for desktop testing
+                    this.slider.addEventListener('mousedown', (e) => this.startDrag(e));
+                    document.addEventListener('mousemove', (e) => this.drag(e));
+                    document.addEventListener('mouseup', () => this.endDrag());
+                }
+                
+                startDrag(e) {
+                    this.isDragging = true;
+                    this.startX = e.clientX;
+                    this.currentX = this.startX;
+                    this.slider.style.transition = 'none';
+                    this.stopAutoPlay();
+                }
+                
+                drag(e) {
+                    if (!this.isDragging) return;
+                    
+                    this.currentX = e.clientX;
+                    const diff = this.startX - this.currentX;
+                    const visibleSlides = this.getVisibleSlides();
+                    const slideWidth = 100 / visibleSlides;
+                    const currentOffset = this.currentSlide * slideWidth;
+                    
+                    // Calculate drag offset
+                    const maxDrag = slideWidth * 0.3;
+                    const dragOffset = Math.max(Math.min(diff / window.innerWidth * 100, maxDrag), -maxDrag);
+                    
+                    this.slider.style.transform = `translateX(calc(-${currentOffset}% - ${dragOffset}px))`;
+                }
+                
+                endDrag() {
+                    if (!this.isDragging) return;
+                    
+                    this.isDragging = false;
+                    this.slider.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    
+                    const diff = this.startX - this.currentX;
+                    
+                    if (Math.abs(diff) > this.dragThreshold) {
+                        if (diff > 0) {
+                            this.nextSlide();
+                        } else {
+                            this.prevSlide();
+                        }
+                    } else {
+                        this.updateSlider();
+                    }
+                    
+                    if (this.autoPlayEnabled) {
+                        this.resetAutoPlay();
+                    }
+                }
+                
+                setupEventListeners() {
+                    // Button navigation
+                    if (this.prevBtn) {
+                        this.prevBtn.addEventListener('click', () => this.prevSlide());
+                    }
+                    
+                    if (this.nextBtn) {
+                        this.nextBtn.addEventListener('click', () => this.nextSlide());
+                    }
+                    
+                    // Keyboard navigation
+                    document.addEventListener('keydown', (e) => {
+                        if (e.target.closest('.team-slider-container')) {
+                            if (e.key === 'ArrowLeft') {
+                                e.preventDefault();
+                                this.prevSlide();
+                            } else if (e.key === 'ArrowRight') {
+                                e.preventDefault();
+                                this.nextSlide();
+                            } else if (e.key === 'Home') {
+                                e.preventDefault();
+                                this.goToSlide(0);
+                            } else if (e.key === 'End') {
+                                e.preventDefault();
+                                this.goToSlide(this.getMaxSlide());
+                            }
+                        }
+                    });
+                    
+                    // Resize handling with debounce
+                    let resizeTimeout;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimeout);
+                        resizeTimeout = setTimeout(() => {
+                            this.createDots();
+                            this.updateSlider();
+                        }, 150);
+                    });
+                    
+                    // Auto-play toggle
+                    if (this.autoPlayToggle) {
+                        this.autoPlayToggle.addEventListener('click', () => this.toggleAutoPlay());
+                    }
+                    
+                    // Pause auto-play on hover
+                    this.slider.addEventListener('mouseenter', () => this.stopAutoPlay());
+                    this.slider.addEventListener('mouseleave', () => {
+                        if (this.autoPlayEnabled) {
+                            this.startAutoPlay();
+                        }
+                    });
+                    
+                    // Focus management
+                    this.slider.addEventListener('focusin', () => this.stopAutoPlay());
+                    this.slider.addEventListener('focusout', () => {
+                        if (this.autoPlayEnabled) {
+                            setTimeout(() => this.startAutoPlay(), 1000);
+                        }
+                    });
+                    
+                    // Setup drag handling
+                    this.setupDragHandling();
+                }
+                
+                setupAccessibility() {
+                    // Add ARIA roles and properties
+                    this.slider.setAttribute('role', 'group');
+                    this.slider.setAttribute('aria-roledescription', 'carousel');
+                    this.slider.setAttribute('aria-live', 'polite');
+                    
+                    // Label each slide
+                    this.teamMembers.forEach((member, index) => {
+                        const name = member.querySelector('h3')?.textContent || `Team member ${index + 1}`;
+                        member.setAttribute('role', 'group');
+                        member.setAttribute('aria-roledescription', 'slide');
+                        member.setAttribute('aria-label', `${name}, ${index + 1} of ${this.teamMembers.length}`);
+                    });
+                }
             }
 
-            // Slider button events
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                    currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
-                    updateTeamSlider();
+            // Initialize team slider
+            const teamSlider = new TeamSlider();
+            
+            // Expose to global scope if needed
+            window.teamSlider = teamSlider;
+            
+            // Lazy load images
+            const lazyImages = document.querySelectorAll('.member-photo img[loading="lazy"]');
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src || img.src;
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                }, { rootMargin: '50px' });
+                
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback for browsers without IntersectionObserver
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src || img.src;
                 });
             }
-
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
-                    updateTeamSlider();
-                });
-            }
-
-            // Slider dots
-            sliderDots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    currentTeamSlide = index;
-                    updateTeamSlider();
-                });
-            });
 
             // Animated counters
             const counters = document.querySelectorAll('.stat-number');
@@ -2453,17 +2815,6 @@
                 });
             }
 
-            // Button hover effects
-            document.querySelectorAll('.btn').forEach(button => {
-                button.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-2px)';
-                });
-                
-                button.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-
             // Header scroll effect
             if (header) {
                 window.addEventListener('scroll', () => {
@@ -2475,29 +2826,22 @@
                 });
             }
 
-            // Keyboard navigation
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowLeft') {
-                    clearInterval(slideTimer);
-                    let prev = currentSlide - 1;
-                    if (prev < 0) prev = slides.length - 1;
-                    showSlide(prev);
-                    slideTimer = setInterval(nextSlide, slideInterval);
-                } else if (e.key === 'ArrowRight') {
-                    clearInterval(slideTimer);
-                    nextSlide();
-                    slideTimer = setInterval(nextSlide, slideInterval);
+            // Utility function for visually hidden elements
+            const style = document.createElement('style');
+            style.textContent = `
+                .visually-hidden {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border: 0;
                 }
-            });
-
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                if (window.innerWidth > 768 && mainNav) {
-                    mainNav.classList.remove('active');
-                    if (mobileMenuBtn) mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-                updateTeamSlider();
-            });
+            `;
+            document.head.appendChild(style);
         });
     </script>
 </body>
