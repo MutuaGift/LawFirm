@@ -444,40 +444,40 @@
 
         .about-image {
             position: relative;
-            height: 450px;
+            height: 500px;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
             box-shadow: var(--shadow-lg);
         }
 
-        .image-decoration {
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%; /* Focus on upper body/face */
+            transition: var(--transition);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-
-        .image-decoration i {
-            font-size: 5rem;
-            color: var(--accent-gold);
-            margin-bottom: 15px;
-            opacity: 0.8;
-        }
-
-        .image-decoration h3 {
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 30, 60, 0.9);
             color: var(--white);
-            font-size: 1.3rem;
-            margin-bottom: 8px;
-        }
-
-        .image-decoration p {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            backdrop-filter: blur(5px);
         }
 
         .about-intro {
@@ -639,13 +639,25 @@
         }
 
         .member-photo {
-            height: 220px;
+            height: 300px;
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-blue));
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%; /* Focus on upper body/face */
+            transition: var(--transition);
+        }
+
+        .team-member:hover .member-photo img {
+            transform: scale(1.05);
         }
 
         .member-photo i {
@@ -1488,7 +1500,7 @@
             }
             
             .about-image {
-                height: 350px;
+                height: 400px;
             }
             
             .contact-form,
@@ -1513,7 +1525,7 @@
                 </div>
                 <div>
                     <div class="logo-text">J.M. Kathili & Company</div>
-                    <div class="logo-subtext">Advocates | Machakos</div>
+                    <div class="logo-subtext">Advocates | Machakos, Nairobi & Matuu</div>
                 </div>
             </div>
 
@@ -1587,24 +1599,22 @@
         <div class="container">
             <div class="section-header">
                 <h2>About Our Firm</h2>
-                <p>16 Years of Legal Excellence and Client-Focused Service in Machakos</p>
+                <p><span id="years-of-experience">0</span> Year of Legal Excellence and Client-Focused Service in Machakos, Nairobi & Matuu</p>
             </div>
 
             <div class="about-container">
                 <div class="about-image">
-                    <div class="image-decoration">
-                        <i class="fas fa-balance-scale"></i>
-                        <h3>Trusted Since 2008</h3>
-                        <p>Your Justice, Our Commitment</p>
-                    </div>
+                    <!-- Replace with James Kathili's actual photo path -->
+                    <img src="james_kathili.jpg" alt="James M. Kathili">
+                    <div class="image-caption">Managing Director / Founder</div>
                 </div>
                 <div class="about-content">
                     <p class="about-intro">
-                        J.M. Kathili & Company Advocates has been at the forefront of Machakos County's legal landscape since 2008, providing exceptional legal services with integrity, precision, and unwavering commitment to our clients' success.
+                        J.M. Kathili & Company Advocates has been at the forefront of Kenya's legal landscape since <span id="founding-year-text">2025</span>, providing exceptional legal services with integrity, precision, and unwavering commitment to our clients' success across multiple regions.
                     </p>
 
                     <p class="about-text">
-                        Founded on the principles of justice and excellence, our firm specializes in a wide range of legal matters, from civil litigation to property law and family matters. We understand the unique legal landscape of Machakos County and are committed to serving our community with professionalism and dedication.
+                        Founded in May <span id="founding-year-full">2025</span> on the principles of justice and excellence, our firm specializes in a wide range of legal matters, from civil litigation to property law and family matters. With branches in Machakos, Nairobi, and Matuu, we are strategically positioned to serve clients across different regions while maintaining our commitment to professionalism and dedication.
                     </p>
 
                     <div class="firm-highlights">
@@ -1614,7 +1624,7 @@
                             </div>
                             <div class="highlight-content">
                                 <h4>Proven Track Record</h4>
-                                <p>Successfully handled 500+ cases with consistently favorable outcomes in Machakos courts.</p>
+                                <p>Successfully handled numerous cases with consistently favorable outcomes across our service regions.</p>
                             </div>
                         </div>
 
@@ -1624,7 +1634,7 @@
                             </div>
                             <div class="highlight-content">
                                 <h4>Expert Legal Team</h4>
-                                <p>Three specialized lawyers covering all major practice areas with deep local expertise.</p>
+                                <p>Specialized lawyers covering all major practice areas with deep local expertise in multiple regions.</p>
                             </div>
                         </div>
 
@@ -1634,17 +1644,17 @@
                             </div>
                             <div class="highlight-content">
                                 <h4>Client-Focused</h4>
-                                <p>Trusted legal advisors to individuals, businesses, and organizations across Machakos County.</p>
+                                <p>Trusted legal advisors to individuals, businesses, and organizations across Machakos, Nairobi, and Matuu.</p>
                             </div>
                         </div>
 
                         <div class="highlight-item">
                             <div class="highlight-icon">
-                                <i class="fas fa-balance-scale"></i>
+                                <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div class="highlight-content">
-                                <h4>Community Engagement</h4>
-                                <p>Committed to pro bono services and community legal education initiatives.</p>
+                                <h4>Multiple Locations</h4>
+                                <p>Serving clients from our offices in Machakos, Nairobi, and Matuu for greater accessibility and convenience.</p>
                             </div>
                         </div>
                     </div>
@@ -1652,10 +1662,10 @@
                     <div class="partner-info">
                         <div class="partner-name">
                             <h3>James M. Kathili</h3>
-                            <span class="partner-role">Managing Partner</span>
+                            <span class="partner-role">Managing Director / Founder</span>
                         </div>
                         <p class="partner-quote">
-                            "Our firm's philosophy is simple: provide exceptional legal counsel that not only solves immediate challenges but also positions our clients for long-term success. After 16 years practicing in Machakos, I'm proud to lead a team that shares this commitment to excellence and personalized client service."
+                            "Our firm's philosophy is simple: provide exceptional legal counsel that not only solves immediate challenges but also positions our clients for long-term success. With offices in Machakos, Nairobi, and Matuu, we're strategically positioned to serve clients across different regions while maintaining our commitment to excellence and personalized client service."
                         </p>
                         <div class="signature">James M. Kathili</div>
                     </div>
@@ -1669,7 +1679,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Legal Team</h2>
-                <p>Meet our experienced team of legal experts in Machakos</p>
+                <p>Meet our experienced team of legal experts serving Machakos, Nairobi & Matuu</p>
             </div>
 
             <div class="team-slider-container">
@@ -1677,31 +1687,33 @@
                     <!-- James M. Kathili -->
                     <div class="team-member">
                         <div class="member-photo">
-                            <i class="fas fa-user-tie"></i>
+                            <!-- Replace with James Kathili's actual photo path for team section -->
+                            <img src="managing.jpg" alt="James M. Kathili">
                         </div>
                         <div class="member-info">
                             <h3>James M. Kathili</h3>
-                            <div class="member-role">Managing Partner</div>
+                            <div class="member-role">Managing Director / Founder</div>
                             <div class="member-specialty">Civil Litigation & Commercial Law</div>
-                            <p>15+ years experience specializing in civil disputes and commercial transactions in Machakos courts. Proven track record of successful litigation outcomes.</p>
+                            <p>Specializing in civil disputes and commercial transactions across Machakos, Nairobi, and Matuu courts. Proven track record of successful litigation outcomes in multiple jurisdictions.</p>
                             <a href="tel:+254721157732" class="contact-phone">
                                 <i class="fas fa-phone"></i> 0721 157 732
                             </a>
                         </div>
                     </div>
 
-                    <!-- Cicily W. Marui -->
+                    <!-- Judah Mwendwa -->
                     <div class="team-member">
                         <div class="member-photo">
-                            <i class="fas fa-user-tie"></i>
+                            <!-- Replace with Judah's actual photo path -->
+                            <img src="judah.jpg" alt="Judah Mwendwa">
                         </div>
                         <div class="member-info">
-                            <h3>Cicily W. Marui</h3>
-                            <div class="member-role">Associate Advocate</div>
-                            <div class="member-specialty">Family & Succession Law</div>
-                            <p>10+ years experience in family law with expertise in complex divorce and custody cases in Machakos. Compassionate approach to sensitive matters.</p>
-                            <a href="tel:+254732053109" class="contact-phone">
-                                <i class="fas fa-phone"></i> 0732 053 109
+                            <h3>Judah Mwendwa</h3>
+                            <div class="member-role">Legal Assistant / Lawyer</div>
+                            <div class="member-specialty">Legal Research & Client Support</div>
+                            <p>Skilled legal professional providing comprehensive support in research, documentation, and client services across our Machakos, Nairobi, and Matuu offices. Committed to ensuring efficient case management and client satisfaction.</p>
+                            <a href="tel:+254743303669" class="contact-phone">
+                                <i class="fas fa-phone"></i> 0743 303 669
                             </a>
                         </div>
                     </div>
@@ -1709,13 +1721,14 @@
                     <!-- Joshua Martim -->
                     <div class="team-member">
                         <div class="member-photo">
+                            <!-- Replace with Joshua's actual photo path or keep icon -->
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="member-info">
                             <h3>Joshua Martim</h3>
                             <div class="member-role">Associate Advocate</div>
                             <div class="member-specialty">Conveyancing & Legal Drafting</div>
-                            <p>8+ years experience in property law, specializing in commercial real estate transactions in Machakos. Meticulous attention to detail in legal documentation.</p>
+                            <p>Experience in property law, specializing in commercial real estate transactions across Machakos, Nairobi, and Matuu. Meticulous attention to detail in legal documentation for various property matters.</p>
                             <a href="tel:+254721157732" class="contact-phone">
                                 <i class="fas fa-phone"></i> 0721 157 732
                             </a>
@@ -1747,7 +1760,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Legal Services</h2>
-                <p>Comprehensive legal solutions tailored to your specific needs in Machakos</p>
+                <p>Comprehensive legal solutions tailored to your specific needs across Machakos, Nairobi & Matuu</p>
             </div>
 
             <div class="services-grid">
@@ -1756,7 +1769,7 @@
                         <i class="fas fa-gavel"></i>
                     </div>
                     <h3>Civil Litigation</h3>
-                    <p>Expert representation in civil disputes with a proven track record of successful outcomes in Machakos Law Courts.</p>
+                    <p>Expert representation in civil disputes with a proven track record of successful outcomes in courts across Machakos, Nairobi, and Matuu.</p>
                 </div>
 
                 <div class="service-card">
@@ -1764,7 +1777,7 @@
                         <i class="fas fa-home"></i>
                     </div>
                     <h3>Conveyancing & Real Estate</h3>
-                    <p>Comprehensive property law services including land transactions, title transfers, and property disputes specific to Machakos County.</p>
+                    <p>Comprehensive property law services including land transactions, title transfers, and property disputes across multiple regions.</p>
                 </div>
 
                 <div class="service-card">
@@ -1807,7 +1820,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Our Mission & Values</h2>
-                <p>The principles that guide our practice and client relationships</p>
+                <p>The principles that guide our practice and client relationships across all our offices</p>
             </div>
 
             <div class="values-grid">
@@ -1816,7 +1829,7 @@
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h4>Integrity</h4>
-                    <p>We maintain the highest ethical standards in all our dealings, ensuring complete transparency with our clients.</p>
+                    <p>We maintain the highest ethical standards in all our dealings, ensuring complete transparency with our clients across all locations.</p>
                 </div>
 
                 <div class="value-card">
@@ -1824,7 +1837,7 @@
                         <i class="fas fa-gem"></i>
                     </div>
                     <h4>Excellence</h4>
-                    <p>We strive for the highest quality in our legal work, continuously improving our skills and knowledge.</p>
+                    <p>We strive for the highest quality in our legal work, continuously improving our skills and knowledge to serve clients better.</p>
                 </div>
 
                 <div class="value-card">
@@ -1832,7 +1845,7 @@
                         <i class="fas fa-user-tie"></i>
                     </div>
                     <h4>Professionalism</h4>
-                    <p>We conduct ourselves with the utmost professionalism in all interactions and legal proceedings.</p>
+                    <p>We conduct ourselves with the utmost professionalism in all interactions and legal proceedings, regardless of location.</p>
                 </div>
 
                 <div class="value-card">
@@ -1840,7 +1853,7 @@
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
                     <h4>Client-Centered</h4>
-                    <p>Our clients' interests always come first, and we tailor our approach to meet their specific needs.</p>
+                    <p>Our clients' interests always come first, and we tailor our approach to meet their specific needs across all our offices.</p>
                 </div>
             </div>
         </div>
@@ -1851,11 +1864,11 @@
         <div class="container">
             <div class="stats-container">
                 <div class="stat-item">
-                    <span class="stat-number" data-target="16">0</span>
-                    <span class="stat-text">Years of Experience</span>
+                    <span class="stat-number" data-target="1" id="years-stat">0</span>
+                    <span class="stat-text">Year of Experience</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number" data-target="500">0+</span>
+                    <span class="stat-number" data-target="50">0+</span>
                     <span class="stat-text">Cases Handled</span>
                 </div>
                 <div class="stat-item">
@@ -1871,13 +1884,13 @@
         <div class="container">
             <div class="section-header">
                 <h2>Client Testimonials</h2>
-                <p>What our clients say about our legal services</p>
+                <p>What our clients say about our legal services across different regions</p>
             </div>
 
             <div class="testimonial-slider">
                 <div class="testimonial">
                     <div class="testimonial-text">
-                        J.M. Kathili & Company provided exceptional representation in our complex land dispute in Machakos. Their deep understanding of local property laws and strategic approach resulted in a favorable settlement that exceeded our expectations. Professional, knowledgeable, and truly client-focused.
+                        J.M. Kathili & Company provided exceptional representation in our complex land dispute. Their deep understanding of property laws and strategic approach resulted in a favorable settlement that exceeded our expectations. Professional, knowledgeable, and truly client-focused across all their offices.
                     </div>
                     <div class="testimonial-author">Samuel Mutua</div>
                     <div class="testimonial-role">Business Owner, Machakos</div>
@@ -1891,12 +1904,12 @@
         <div class="container">
             <div class="section-header">
                 <h2>Contact Us</h2>
-                <p>Get in touch with our legal team for a consultation</p>
+                <p>Get in touch with our legal team for a consultation at any of our offices</p>
             </div>
 
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Our Office</h3>
+                    <h3>Our Offices</h3>
                     <div class="contact-details">
                         <div class="contact-item">
                             <div class="contact-icon">
@@ -1904,8 +1917,8 @@
                             </div>
                             <div>
                                 <strong>Phone Numbers</strong><br>
-                                0721 157 732<br>
-                                0732 053 109
+                                0721 157 732 (Machakos)<br>
+                                0743 303 669 (General)
                             </div>
                         </div>
 
@@ -1935,8 +1948,9 @@
                                 <i class="fas fa-map-marker-alt"></i>
                             </div>
                             <div>
-                                <strong>Office Address</strong><br>
-                                P.O BOX 1018-90100, Machakos, Kenya
+                                <strong>Office Locations</strong><br>
+                                Machakos, Nairobi & Matuu<br>
+                                (Details available upon request)
                             </div>
                         </div>
                     </div>
@@ -1948,13 +1962,10 @@
                         <input type="email" placeholder="Your Email" required>
                         <input type="tel" placeholder="Your Phone">
                         <select required>
-                            <option value="" disabled selected>Select Practice Area</option>
-                            <option value="litigation">Civil Litigation</option>
-                            <option value="conveyancing">Conveyancing & Real Estate</option>
-                            <option value="family">Family & Succession Law</option>
-                            <option value="drafting">Legal Drafting</option>
-                            <option value="oaths">Commissioner for Oaths</option>
-                            <option value="mediation">Mediation Services</option>
+                            <option value="" disabled selected>Select Preferred Office</option>
+                            <option value="machakos">Machakos Office</option>
+                            <option value="nairobi">Nairobi Office</option>
+                            <option value="matuu">Matuu Office</option>
                         </select>
                         <textarea placeholder="Your Message" rows="5" required></textarea>
                         <button type="submit" class="btn btn-primary">
@@ -1972,7 +1983,7 @@
             <div class="footer-container">
                 <div class="footer-column">
                     <h3>J.M. Kathili & Company</h3>
-                    <p>Providing exceptional legal services in Machakos for over 16 years with integrity, professionalism, and client-focused advocacy.</p>
+                    <p>Providing exceptional legal services across Machakos, Nairobi, and Matuu for over <span id="footer-years">1</span> year with integrity, professionalism, and client-focused advocacy.</p>
                     <div class="social-links">
                         <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -2008,16 +2019,16 @@
                     <ul class="footer-links">
                         <li><i class="fas fa-phone"></i> 0721 157 732</li>
                         <li><i class="fas fa-envelope"></i> jameskathili2018@gmail.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> Machakos, Kenya</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Machakos, Nairobi & Matuu</li>
                         <li><i class="fas fa-clock"></i> Mon-Fri: 8AM-5PM</li>
                     </ul>
                 </div>
             </div>
 
             <div class="copyright">
-                &copy; 2026 J.M. Kathili & Company Advocates. All rights reserved.
+                &copy; <span id="current-year">2025</span> J.M. Kathili & Company Advocates. All rights reserved.
                 <p style="margin: 10px 0 0; font-size: 13px; color: rgba(255,255,255,0.5);">
-                    Advocates & Commissioners for Oaths | Machakos, Kenya
+                    Advocates & Commissioners for Oaths | Machakos, Nairobi & Matuu, Kenya
                 </p>
             </div>
         </div>
@@ -2030,6 +2041,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic year calculation for the firm's founding
+            const foundingYear = 2025; // Founded in May 2025
+            const foundingMonth = 4; // May (0-indexed: 0=Jan, 4=May)
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth(); // 0-indexed
+            
+            // Calculate years of experience
+            let yearsOfExperience = currentYear - foundingYear;
+            
+            // Adjust if current month is before May (the firm was founded in May)
+            if (currentMonth < foundingMonth) {
+                yearsOfExperience--; // Subtract 1 if we haven't reached May yet this year
+            }
+            
+            // Ensure at least 1 year is shown
+            yearsOfExperience = Math.max(yearsOfExperience, 1);
+            
+            // Update all year-related elements
+            document.getElementById('years-of-experience').textContent = yearsOfExperience;
+            document.getElementById('years-of-service').textContent = yearsOfExperience;
+            document.getElementById('founding-year').textContent = foundingYear;
+            document.getElementById('founding-year-text').textContent = foundingYear;
+            document.getElementById('founding-year-full').textContent = foundingYear;
+            document.getElementById('footer-years').textContent = yearsOfExperience;
+            document.getElementById('current-year').textContent = currentYear;
+            
+            // Update the stats section
+            const yearsStat = document.getElementById('years-stat');
+            yearsStat.setAttribute('data-target', yearsOfExperience);
+            yearsStat.textContent = yearsOfExperience;
+            
+            // Update text for singular/plural years
+            if (yearsOfExperience === 1) {
+                document.querySelector('.section-header p').innerHTML = `<span id="years-of-experience">${yearsOfExperience}</span> Year of Legal Excellence and Client-Focused Service in Machakos, Nairobi & Matuu`;
+                document.querySelector('.footer-column p').innerHTML = `Providing exceptional legal services across Machakos, Nairobi, and Matuu for over <span id="footer-years">${yearsOfExperience}</span> year with integrity, professionalism, and client-focused advocacy.`;
+                document.querySelector('.stat-text').textContent = 'Year of Experience';
+            }
+            
+            // Rest of the existing JavaScript code...
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const mainNav = document.getElementById('mainNav');
             
@@ -2109,10 +2160,10 @@
 
             const typewriter = document.getElementById('typewriter-text');
             const messages = [
-                "Trusted Legal Advocates Since 2008",
-                "Providing Exceptional Legal Services in Machakos",
+                "Trusted Legal Advocates Since " + foundingYear,
+                "Providing Exceptional Legal Services in Machakos, Nairobi & Matuu",
                 "Your Justice. Our Commitment.",
-                "Expert Legal Representation in Machakos County"
+                "Expert Legal Representation Across Multiple Regions"
             ];
             let messageIndex = 0;
             let charIndex = 0;
@@ -2263,13 +2314,13 @@
                 const name = this.querySelector('input[type="text"]').value;
                 const email = this.querySelector('input[type="email"]').value;
                 const phone = this.querySelector('input[type="tel"]').value || 'Not provided';
-                const service = this.querySelector('select').value;
+                const office = this.querySelector('select').value;
                 const message = this.querySelector('textarea').value;
                 
                 const subject = `Legal Consultation Request from ${name}`;
                 const body = `Dear J.M. Kathili & Company Advocates,
 
-I would like to request a legal consultation regarding ${service}.
+I would like to request a legal consultation at your ${office} office.
 
 My contact details:
 - Name: ${name}
