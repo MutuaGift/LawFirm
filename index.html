@@ -455,7 +455,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 25%; /* Focus on upper body/face */
+            object-position: center 25%;
             transition: var(--transition);
         }
 
@@ -652,7 +652,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 30%; /* Focus on upper body/face */
+            object-position: center 30%;
             transition: var(--transition);
         }
 
@@ -1438,8 +1438,38 @@
                 gap: 12px;
             }
             
+            /* MOBILE TEAM SLIDER FIX */
             .team-member {
-                min-width: 100%;
+                min-width: 85% !important;
+                margin: 0 10px;
+            }
+            
+            .team-slider-container {
+                overflow: hidden;
+                touch-action: pan-y;
+            }
+            
+            .slider-btn {
+                width: 50px;
+                height: 50px;
+                background: var(--accent-gold);
+                color: var(--primary-dark);
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                z-index: 10;
+            }
+            
+            .prev-btn {
+                left: 10px;
+            }
+            
+            .next-btn {
+                right: 10px;
+            }
+            
+            .slider-dots {
+                margin-top: 30px;
             }
             
             .services-grid {
@@ -1512,6 +1542,15 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .team-member {
+                min-width: 90% !important;
+            }
+            
+            .slider-btn {
+                width: 45px;
+                height: 45px;
+            }
         }
     </style>
 </head>
@@ -1554,7 +1593,6 @@
     <!-- Hero Section -->
     <section class="hero" id="home">
         <div class="hero-background">
-            <!-- Multiple professional legal background images -->
             <div class="hero-slide active" style="background-image: url('https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1600508774546-6a4c7a7a4c6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
             <div class="hero-slide" style="background-image: url('https://images.unsplash.com/photo-1589391886085-8b6b0ac72a1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')"></div>
@@ -1604,7 +1642,6 @@
 
             <div class="about-container">
                 <div class="about-image">
-                    <!-- Replace with James Kathili's actual photo path -->
                     <img src="james_kathili.jpg" alt="James M. Kathili">
                     <div class="image-caption">Managing Director / Founder</div>
                 </div>
@@ -1687,7 +1724,6 @@
                     <!-- James M. Kathili -->
                     <div class="team-member">
                         <div class="member-photo">
-                            <!-- Replace with James Kathili's actual photo path for team section -->
                             <img src="managing.jpg" alt="James M. Kathili">
                         </div>
                         <div class="member-info">
@@ -1704,7 +1740,6 @@
                     <!-- Judah Mwendwa -->
                     <div class="team-member">
                         <div class="member-photo">
-                            <!-- Replace with Judah's actual photo path -->
                             <img src="judah.jpg" alt="Judah Mwendwa">
                         </div>
                         <div class="member-info">
@@ -1721,7 +1756,6 @@
                     <!-- Joshua Martim -->
                     <div class="team-member">
                         <div class="member-photo">
-                            <!-- Replace with Joshua's actual photo path or keep icon -->
                             <i class="fas fa-user-tie"></i>
                         </div>
                         <div class="member-info">
@@ -2040,354 +2074,431 @@
     </a>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Dynamic year calculation for the firm's founding
-        const foundingYear = 2025; // Founded in May 2025
-        const foundingMonth = 4; // May (0-indexed: 0=Jan, 4=May)
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const currentMonth = currentDate.getMonth(); // 0-indexed
-        
-        // Calculate years of experience
-        let yearsOfExperience = currentYear - foundingYear;
-        
-        // Adjust if current month is before May (the firm was founded in May)
-        if (currentMonth < foundingMonth) {
-            yearsOfExperience--; // Subtract 1 if we haven't reached May yet this year
-        }
-        
-        // Ensure at least 1 year is shown
-        yearsOfExperience = Math.max(yearsOfExperience, 1);
-        
-        // Update all year-related elements
-        document.getElementById('years-of-experience').textContent = yearsOfExperience;
-        document.getElementById('footer-years').textContent = yearsOfExperience;
-        document.getElementById('current-year').textContent = currentYear;
-        
-        // Update the stats section
-        const yearsStat = document.getElementById('years-stat');
-        yearsStat.setAttribute('data-target', yearsOfExperience);
-        yearsStat.textContent = yearsOfExperience;
-        
-        // Mobile menu functionality
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mainNav = document.getElementById('mainNav');
-        
-        if (mobileMenuBtn && mainNav) {
-            mobileMenuBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                mainNav.classList.toggle('active');
-                mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
-                    ? '<i class="fas fa-times"></i>' 
-                    : '<i class="fas fa-bars"></i>';
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-                    mainNav.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
-        }
-
-        // Hero slider functionality
-        const slides = document.querySelectorAll('.hero-slide');
-        const indicators = document.querySelectorAll('.slide-indicator');
-        let currentSlide = 0;
-        const slideInterval = 5000;
-
-        function showSlide(index) {
-            slides.forEach(slide => {
-                slide.classList.remove('active');
-                slide.style.zIndex = '1';
-            });
-            indicators.forEach(indicator => indicator.classList.remove('active'));
+        document.addEventListener('DOMContentLoaded', function() {
+            // Dynamic year calculation
+            const foundingYear = 2025;
+            const foundingMonth = 4; // May (0-indexed)
+            const currentDate = new Date();
+            const currentYear = currentDate.getFullYear();
+            const currentMonth = currentDate.getMonth();
             
-            currentSlide = index;
-            slides[currentSlide].classList.add('active');
-            slides[currentSlide].style.zIndex = '2';
-            indicators[currentSlide].classList.add('active');
-        }
-
-        function nextSlide() {
-            let next = currentSlide + 1;
-            if (next >= slides.length) next = 0;
-            showSlide(next);
-        }
-
-        let slideTimer = setInterval(nextSlide, slideInterval);
-
-        // Pause slider on hover
-        const heroBackground = document.querySelector('.hero-background');
-        if (heroBackground) {
-            heroBackground.addEventListener('mouseenter', () => {
-                clearInterval(slideTimer);
-            });
+            let yearsOfExperience = currentYear - foundingYear;
+            if (currentMonth < foundingMonth) yearsOfExperience--;
+            yearsOfExperience = Math.max(yearsOfExperience, 1);
             
-            heroBackground.addEventListener('mouseleave', () => {
-                slideTimer = setInterval(nextSlide, slideInterval);
-            });
-        }
+            // Update year elements
+            document.getElementById('years-of-experience').textContent = yearsOfExperience;
+            document.getElementById('footer-years').textContent = yearsOfExperience;
+            document.getElementById('current-year').textContent = currentYear;
+            
+            const yearsStat = document.getElementById('years-stat');
+            yearsStat.setAttribute('data-target', yearsOfExperience);
+            yearsStat.textContent = yearsOfExperience;
+            
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mainNav = document.getElementById('mainNav');
+            
+            if (mobileMenuBtn && mainNav) {
+                mobileMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    mainNav.classList.toggle('active');
+                    mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                        ? '<i class="fas fa-times"></i>' 
+                        : '<i class="fas fa-bars"></i>';
+                });
 
-        // Slide indicator click handlers
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => {
-                clearInterval(slideTimer);
-                showSlide(index);
-                slideTimer = setInterval(nextSlide, slideInterval);
-            });
-        });
-
-        // Typewriter effect
-        const typewriter = document.getElementById('typewriter-text');
-        if (typewriter) {
-            const messages = [
-                "Trusted Legal Advocates Since " + foundingYear,
-                "Providing Exceptional Legal Services in Machakos, Nairobi & Matuu",
-                "Your Justice. Our Commitment.",
-                "Expert Legal Representation Across Multiple Regions"
-            ];
-            let messageIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let typingSpeed = 100;
-
-            function typeWriter() {
-                const currentMessage = messages[messageIndex];
-                
-                if (isDeleting) {
-                    typewriter.textContent = currentMessage.substring(0, charIndex - 1);
-                    charIndex--;
-                    typingSpeed = 50;
-                } else {
-                    typewriter.textContent = currentMessage.substring(0, charIndex + 1);
-                    charIndex++;
-                    typingSpeed = 100;
-                }
-
-                if (!isDeleting && charIndex === currentMessage.length) {
-                    isDeleting = true;
-                    typingSpeed = 1500;
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    messageIndex = (messageIndex + 1) % messages.length;
-                    typingSpeed = 500;
-                }
-
-                setTimeout(typeWriter, typingSpeed);
+                document.addEventListener('click', (e) => {
+                    if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
             }
 
-            setTimeout(typeWriter, 1000);
-        }
+            // Hero slider functionality
+            const slides = document.querySelectorAll('.hero-slide');
+            const indicators = document.querySelectorAll('.slide-indicator');
+            let currentSlide = 0;
+            const slideInterval = 5000;
 
-        // Team slider functionality - FIXED
-        const teamSlider = document.getElementById('teamSlider');
-        const teamMembers = document.querySelectorAll('.team-member');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        const sliderDots = document.querySelectorAll('.slider-dot');
-        let currentTeamSlide = 0;
+            function showSlide(index) {
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                    slide.style.zIndex = '1';
+                });
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                currentSlide = index;
+                slides[currentSlide].classList.add('active');
+                slides[currentSlide].style.zIndex = '2';
+                indicators[currentSlide].classList.add('active');
+            }
 
-        function updateTeamSlider() {
-            if (teamSlider && teamMembers.length > 0) {
-                const slideWidth = 100 / teamMembers.length;
+            function nextSlide() {
+                let next = currentSlide + 1;
+                if (next >= slides.length) next = 0;
+                showSlide(next);
+            }
+
+            let slideTimer = setInterval(nextSlide, slideInterval);
+
+            const heroBackground = document.querySelector('.hero-background');
+            if (heroBackground) {
+                heroBackground.addEventListener('mouseenter', () => {
+                    clearInterval(slideTimer);
+                });
+                
+                heroBackground.addEventListener('mouseleave', () => {
+                    slideTimer = setInterval(nextSlide, slideInterval);
+                });
+            }
+
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    clearInterval(slideTimer);
+                    showSlide(index);
+                    slideTimer = setInterval(nextSlide, slideInterval);
+                });
+            });
+
+            // Typewriter effect
+            const typewriter = document.getElementById('typewriter-text');
+            if (typewriter) {
+                const messages = [
+                    "Trusted Legal Advocates Since " + foundingYear,
+                    "Providing Exceptional Legal Services in Machakos, Nairobi & Matuu",
+                    "Your Justice. Our Commitment.",
+                    "Expert Legal Representation Across Multiple Regions"
+                ];
+                let messageIndex = 0;
+                let charIndex = 0;
+                let isDeleting = false;
+                let typingSpeed = 100;
+
+                function typeWriter() {
+                    const currentMessage = messages[messageIndex];
+                    
+                    if (isDeleting) {
+                        typewriter.textContent = currentMessage.substring(0, charIndex - 1);
+                        charIndex--;
+                        typingSpeed = 50;
+                    } else {
+                        typewriter.textContent = currentMessage.substring(0, charIndex + 1);
+                        charIndex++;
+                        typingSpeed = 100;
+                    }
+
+                    if (!isDeleting && charIndex === currentMessage.length) {
+                        isDeleting = true;
+                        typingSpeed = 1500;
+                    } else if (isDeleting && charIndex === 0) {
+                        isDeleting = false;
+                        messageIndex = (messageIndex + 1) % messages.length;
+                        typingSpeed = 500;
+                    }
+
+                    setTimeout(typeWriter, typingSpeed);
+                }
+
+                setTimeout(typeWriter, 1000);
+            }
+
+            // Team slider functionality with mobile swipe support
+            const teamSlider = document.getElementById('teamSlider');
+            const teamMembers = document.querySelectorAll('.team-member');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const sliderDots = document.querySelectorAll('.slider-dot');
+            let currentTeamSlide = 0;
+
+            function updateTeamSlider() {
+                if (!teamSlider || teamMembers.length === 0) return;
+                
+                // Calculate slide width based on screen size
+                let slideWidth;
+                if (window.innerWidth <= 768) {
+                    // Mobile: 85% width per slide
+                    slideWidth = 85;
+                } else {
+                    // Desktop: Show 3 slides at once
+                    slideWidth = 100 / Math.min(3, teamMembers.length);
+                }
+                
                 teamSlider.style.transform = `translateX(-${currentTeamSlide * slideWidth}%)`;
                 
+                // Update active dot
                 sliderDots.forEach((dot, index) => {
                     dot.classList.toggle('active', index === currentTeamSlide);
                 });
             }
-        }
 
-        // Add event listeners for team slider buttons
-        if (prevBtn) {
-            prevBtn.addEventListener('click', () => {
-                currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
-                updateTeamSlider();
-            });
-        }
+            // Initialize slider
+            updateTeamSlider();
 
-        if (nextBtn) {
-            nextBtn.addEventListener('click', () => {
-                currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
-                updateTeamSlider();
-            });
-        }
+            // Touch/swipe for mobile
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let isDragging = false;
 
-        // Slider dots click handlers
-        sliderDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentTeamSlide = index;
-                updateTeamSlider();
-            });
-        });
+            if (teamSlider) {
+                // Touch events
+                teamSlider.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    isDragging = true;
+                });
 
-        // Animated counters for stats
-        const counters = document.querySelectorAll('.stat-number');
-        
-        counters.forEach(counter => {
-            const animate = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText.replace('+', '');
-                
-                const increment = target / 200;
-                
-                if (count < target) {
-                    counter.innerText = Math.ceil(count + increment);
-                    setTimeout(animate, 20);
-                } else {
-                    counter.innerText = target + (counter.getAttribute('data-target').includes('+') ? '+' : '');
-                }
-            };
+                teamSlider.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    touchEndX = e.touches[0].clientX;
+                });
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        setTimeout(animate, 300);
-                        observer.unobserve(entry.target);
+                teamSlider.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    
+                    const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            // Swipe left - next
+                            currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
+                        } else {
+                            // Swipe right - previous
+                            currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
+                        }
+                        updateTeamSlider();
                     }
                 });
-            }, { threshold: 0.5, rootMargin: '0px 0px -50px 0px' });
 
-            observer.observe(counter);
-        });
+                // Mouse drag for desktop testing
+                teamSlider.addEventListener('mousedown', (e) => {
+                    if (window.innerWidth > 768) return;
+                    touchStartX = e.clientX;
+                    isDragging = true;
+                });
 
-        // Smooth scrolling for navigation links
-        const header = document.getElementById('mainHeader');
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+                document.addEventListener('mousemove', (e) => {
+                    if (!isDragging) return;
+                    touchEndX = e.clientX;
+                });
+
+                document.addEventListener('mouseup', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    
+                    const swipeThreshold = 50;
+                    const diff = touchStartX - touchEndX;
+                    
+                    if (Math.abs(diff) > swipeThreshold) {
+                        if (diff > 0) {
+                            currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
+                        } else {
+                            currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
+                        }
+                        updateTeamSlider();
+                    }
+                });
+            }
+
+            // Slider button events
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    currentTeamSlide = (currentTeamSlide - 1 + teamMembers.length) % teamMembers.length;
+                    updateTeamSlider();
+                });
+            }
+
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    currentTeamSlide = (currentTeamSlide + 1) % teamMembers.length;
+                    updateTeamSlider();
+                });
+            }
+
+            // Slider dots
+            sliderDots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentTeamSlide = index;
+                    updateTeamSlider();
+                });
+            });
+
+            // Animated counters
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const animate = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace('+', '');
+                    
+                    const increment = target / 200;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(animate, 20);
+                    } else {
+                        counter.innerText = target + (counter.getAttribute('data-target').includes('+') ? '+' : '');
+                    }
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            setTimeout(animate, 300);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5, rootMargin: '0px 0px -50px 0px' });
+
+                observer.observe(counter);
+            });
+
+            // Smooth scrolling for navigation
+            const header = document.getElementById('mainHeader');
+            document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerHeight = header ? header.offsetHeight : 70;
+                        const targetPosition = targetElement.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 768 && mainNav) {
+                            mainNav.classList.remove('active');
+                            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                        
+                        // Update active nav link
+                        setTimeout(() => {
+                            document.querySelectorAll('nav a').forEach(link => {
+                                link.classList.remove('active');
+                            });
+                            this.classList.add('active');
+                        }, 500);
+                    }
+                });
+            });
+
+            // Update active nav link on scroll
+            const sections = document.querySelectorAll('section[id]');
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollPosition = window.scrollY + 100;
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
                 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
+                document.querySelectorAll('nav a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // Contact form submission
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = this.querySelector('input[type="text"]').value;
+                    const email = this.querySelector('input[type="email"]').value;
+                    const phone = this.querySelector('input[type="tel"]').value || 'Not provided';
+                    const office = this.querySelector('select').value;
+                    const message = this.querySelector('textarea').value;
+                    
+                    const subject = `Legal Consultation Request from ${name}`;
+                    const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0APreferred Office: ${office}%0D%0A%0D%0AMessage:%0D%0A${message}`;
+                    
+                    const mailtoLink = `mailto:jameskathili2018@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    
+                    window.location.href = mailtoLink;
+                    
+                    this.reset();
+                    
+                    return false;
+                });
+            }
+
+            // Scroll indicator
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener('click', () => {
+                    const aboutSection = document.getElementById('about');
                     const headerHeight = header ? header.offsetHeight : 70;
-                    const targetPosition = targetElement.offsetTop - headerHeight;
+                    const targetPosition = aboutSection.offsetTop - headerHeight;
                     
                     window.scrollTo({
                         top: targetPosition,
                         behavior: 'smooth'
                     });
-                    
-                    // Update active nav link
-                    setTimeout(() => {
-                        document.querySelectorAll('nav a').forEach(link => {
-                            link.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    }, 500);
-                }
-            });
-        });
+                });
+            }
 
-        // Update active nav link on scroll
-        const sections = document.querySelectorAll('section[id]');
-        window.addEventListener('scroll', () => {
-            let current = '';
-            const scrollPosition = window.scrollY + 100;
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            document.querySelectorAll('nav a').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-
-        // Contact form submission - FIXED
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+            // Button hover effects
+            document.querySelectorAll('.btn').forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
                 
-                // Get form values
-                const name = this.querySelector('input[type="text"]').value;
-                const email = this.querySelector('input[type="email"]').value;
-                const phone = this.querySelector('input[type="tel"]').value || 'Not provided';
-                const office = this.querySelector('select').value;
-                const message = this.querySelector('textarea').value;
-                
-                // Create mailto link
-                const subject = `Legal Consultation Request from ${name}`;
-                const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0APhone: ${phone}%0D%0APreferred Office: ${office}%0D%0A%0D%0AMessage:%0D%0A${message}`;
-                
-                const mailtoLink = `mailto:jameskathili2018@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-                
-                // Open email client
-                window.location.href = mailtoLink;
-                
-                // Reset form
-                this.reset();
-                
-                return false;
-            });
-        }
-
-        // Scroll indicator functionality
-        const scrollIndicator = document.getElementById('scrollIndicator');
-        if (scrollIndicator) {
-            scrollIndicator.addEventListener('click', () => {
-                const aboutSection = document.getElementById('about');
-                const headerHeight = header ? header.offsetHeight : 70;
-                const targetPosition = aboutSection.offsetTop - headerHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
                 });
             });
-        }
 
-        // Button hover effects
-        document.querySelectorAll('.btn').forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-2px)';
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
-        });
+            // Header scroll effect
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
 
-        // Header scroll effect
-        if (header) {
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    clearInterval(slideTimer);
+                    let prev = currentSlide - 1;
+                    if (prev < 0) prev = slides.length - 1;
+                    showSlide(prev);
+                    slideTimer = setInterval(nextSlide, slideInterval);
+                } else if (e.key === 'ArrowRight') {
+                    clearInterval(slideTimer);
+                    nextSlide();
+                    slideTimer = setInterval(nextSlide, slideInterval);
                 }
             });
-        }
 
-        // Keyboard navigation for hero slider
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') {
-                clearInterval(slideTimer);
-                let prev = currentSlide - 1;
-                if (prev < 0) prev = slides.length - 1;
-                showSlide(prev);
-                slideTimer = setInterval(nextSlide, slideInterval);
-            } else if (e.key === 'ArrowRight') {
-                clearInterval(slideTimer);
-                nextSlide();
-                slideTimer = setInterval(nextSlide, slideInterval);
-            }
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768 && mainNav) {
+                    mainNav.classList.remove('active');
+                    if (mobileMenuBtn) mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                updateTeamSlider();
+            });
         });
-
-        // Initialize everything
-        updateTeamSlider();
-    });
-</script>
+    </script>
 </body>
 </html>
